@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 from ui.Tab import TabLocators, TabPlaceholders, Tab
 
+
 class LoginLocators:
     USERNAME_FIELD = (By.ID, "username")
     PASSWORD_FIELD = (By.ID, "password")
@@ -26,8 +27,8 @@ class LoginForm:
         self.username_placeholder = selenium.find_element(*LoginLocators.USERNAME_PLACEHOLDER)
         self.submit_button = selenium.find_element(*LoginLocators.SUBMIT_BUTTON)
 
-
-        self.tabs = {i: Tab(selenium, i) for i in [TabLocators.NUMBER_TAB, TabLocators.EMAIL_TAB, TabLocators.LOGIN_TAB]}
+        self.tabs = {i: Tab(selenium, i) for i in
+                     [TabLocators.NUMBER_TAB, TabLocators.EMAIL_TAB, TabLocators.LOGIN_TAB]}
         if attributes.auth_attr.ls == 1:
             self.tabs[TabLocators.PERSONAL_ACCOUNT_TAB] = Tab(selenium, TabLocators.PERSONAL_ACCOUNT_TAB)
         self.initial_tab = self.tabs[TabLocators.NUMBER_TAB]
@@ -38,6 +39,6 @@ class LoginForm:
             if val.isActive():
                 return val
         return None
-    
+
     def getUsernamePlaceholder(self):
         return self.username_placeholder.text

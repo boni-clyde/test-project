@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 -m pytest -v --driver Firefox --driver-path driver/geckodriver.exe
+python3 -m pytest -v -s --test_object START --driver Firefox --driver-path driver/geckodriver.exe

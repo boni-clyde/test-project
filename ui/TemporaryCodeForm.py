@@ -14,17 +14,14 @@ class TemporaryCodeForm:
         self.login_button = selenium.find_element(*TemporaryCodeLocators.TO_LOGIN_BUTTON)
     
 class InputTemporaryCodeLocators:
-    DESCRIPTION = (By.CLASS_NAME, "otp-code-form-container__desc")
     BACK_BUTTON = (By.NAME, "otp_back_phone")
     INPUT_FIELDS = (By.XPATH, '//div[@class="code-input-container"]/div/div/div')
     MESSAGE = (By.CLASS_NAME, "otp-code-form-container__desc")
 
 
-class InputTemporatyCodeForm:
+class InputTemporaryCodeForm:
     def __init__(self, selenium):
         self.selenium = selenium
-        self.desc = selenium.find_element(*InputTemporaryCodeLocators.DESCRIPTION)
-        self.back_buttom = selenium.find_element(*InputTemporaryCodeLocators.BACK_BUTTON)
+        self.back_button = selenium.find_element(*InputTemporaryCodeLocators.BACK_BUTTON)
         self.input_fields = selenium.find_elements(*InputTemporaryCodeLocators.INPUT_FIELDS)
         self.message = selenium.find_element(*InputTemporaryCodeLocators.MESSAGE)
-

@@ -14,7 +14,6 @@ from settings import *
 """
 Тест-кейс: Authorization-2
 """
-@pytest.mark.skip
 @pytest.mark.positive
 def test_switch_login_mode(login_view):
     assert login_view.getUsernamePlaceholder() == login_view.initial_tab.placeholder_text
@@ -32,7 +31,6 @@ def test_switch_login_mode(login_view):
 Тест-кейс Authorization-3-Number.
 Тест-кейс Authorization-3-Login.
 """
-@pytest.mark.skip
 @pytest.mark.positive
 @pytest.mark.parametrize("value,expected", [("Bob", TabLocators.LOGIN_TAB), 
                                             ("89991112233", TabLocators.NUMBER_TAB), 
@@ -64,7 +62,6 @@ def test_auto_switch_mode(value, expected, login_view, attributes):
 Тест-кейс: Authorization-1-Number
 Тест-кейс: Authorization-1-LS
 """
-@pytest.mark.skip
 @pytest.mark.positive
 @pytest.mark.parametrize("tab,login,password", [
     (TabLocators.LOGIN_TAB, CORRECT_LOGIN, CORRECT_PASSWORD),
@@ -82,3 +79,24 @@ def test_correct_login(login_view, tab, login, password, attributes):
     login_view.submit_button.click()
     assert len(login_view.selenium.find_elements(By.ID, "app-container")) == 0
     #assert len(login_view.selenium.find_elements(By.XPATH, "//*[text()='Неверный логин или пароль']")) == 0 
+
+
+"""
+Тест-кейс: Authorization-4-Number
+Тест-кейс: Authorization-4-Email
+"""
+@pytest.mark.negative
+@pytest.mark.parametrize("tab,login,password", [
+    (TabLocators.LOGIN_TAB, '1' * 1000, '異體字康熙字典體'),
+    (TabLocators.EMAIL_TAB, '123@321.23@', '123 OR 1=1') # sql
+])
+def test_extremal_login(login_view, tab, login, password, attributes):
+    if tab == TabLocators.PERSONAL_ACCOUNT_TAB and attributes.auth_attr.ls == 0:
+        pytest.skip("Test is not supported by test object")
+    login_view.tabs[tab].click()
+    login_view.username_field.send_keys(login)
+    login_view.password_field.send_keys(password)
+    fill_capcha(login_view.selenium)
+    login_view.submit_button.click()
+    #assert len(login_view.selenium.find_elements(By.ID, "app-container")) == 0
+    assert len(login_view.selenium.find_elements(By.XPATH, "//*[text()='Неверный логин или пароль']")) != 0
