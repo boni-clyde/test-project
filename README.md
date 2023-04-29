@@ -18,7 +18,3 @@ conftest.py - фикстуры
 Старт Web	- https://start.rt.ru/ - START
 Умный дом Web -	https://lk.smarthome.rt.ru/ - SMART
 Ключ Web -	https://key.rt.ru/ - KEY
-
-Так-же тесты требуют передать аргументы --mail, --ls, --number, --login, --password.
-Аргументы --mail, --ls, --number, --login содержат корретные данные для входа. Такие учетные записи должны существовать.
-Все они должны иметь пароль --password.
