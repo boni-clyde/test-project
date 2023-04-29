@@ -38,3 +38,4 @@ run-chrome.sh - запуск тестов
 Умный дом Web -	https://lk.smarthome.rt.ru/ - SMART
 
 Ключ Web -	https://key.rt.ru/ - KEY
+
