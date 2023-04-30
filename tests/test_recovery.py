@@ -9,7 +9,6 @@ Recovery-1-Number
 Recovery-1-Mail
 """
 
-
 @pytest.mark.positive
 @pytest.mark.parametrize("tab, username, password", [(TabLocators.NUMBER_TAB, CORRECT_NUMBER, "12345aBC"),
                                                 (TabLocators.EMAIL_TAB, CORRECT_EMAIL, "12345aBC")])
@@ -38,3 +37,15 @@ def test_correct_recovery(recover_view: RecoverForm, tab, username, password):
     view.submit.click()
     assert url != view.selenium.current_url and len(view.selenium.find_elements(By.ID, "form-error-message")) == 0
 
+
+"""
+Тест-кейс: Recovery-2
+"""
+@pytest.mark.positive
+def test_switch_recover_mode(recover_view):
+    assert recover_view.getActiveTab() == recover_view.initial_tab
+    for i in list(recover_view.tabs.values())[1:]:
+        i.click()
+        assert recover_view.getActiveTab() == i
+    list(recover_view.tabs.values())[0].click()
+    assert recover_view.getActiveTab() == recover_view.initial_tab

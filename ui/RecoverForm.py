@@ -23,6 +23,12 @@ class RecoverForm:
             self.tabs[TabLocators.PERSONAL_ACCOUNT_TAB] = Tab(selenium, TabLocators.PERSONAL_ACCOUNT_TAB)
         self.initial_tab = self.tabs[TabLocators.NUMBER_TAB]
 
+    def getActiveTab(self):
+        for key, val in self.tabs.items():
+            if val.isActive():
+                return val
+        return None
+
 
 class InputRecoverLocators:
     BACK_BUTTON = (By.NAME, "cancel_reset")

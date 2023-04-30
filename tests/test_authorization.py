@@ -77,18 +77,27 @@ def test_correct_login(login_view, tab, login, password, attributes):
     login_view.password_field.send_keys(password)
     fill_capcha(login_view.selenium)
     login_view.submit_button.click()
+    try:
+        WebDriverWait(login_view.selenium, 5).until(EC.presence_of_element_located((By.ID, "app-container")))
+    except:
+        pass
+
     assert len(login_view.selenium.find_elements(By.ID, "app-container")) == 0
-    #assert len(login_view.selenium.find_elements(By.XPATH, "//*[text()='Неверный логин или пароль']")) == 0 
+    assert len(login_view.selenium.find_elements(By.XPATH, "//*[text()='Неверный логин или пароль']")) == 0
 
 
 """
 Тест-кейс: Authorization-4-Number
 Тест-кейс: Authorization-4-Email
+Тест-кейс: Authorization-4-Login
+Тест-кейс: Authorization-4-LS
 """
 @pytest.mark.negative
-@pytest.mark.parametrize("tab,login,password", [
-    (TabLocators.LOGIN_TAB, '1' * 1000, '異體字康熙字典體'),
-    (TabLocators.EMAIL_TAB, '123@321.23@', '123 OR 1=1') # sql
+@pytest.mark.parametrize("tab,login,password",
+    [(TabLocators.LOGIN_TAB, '1' * 1000, '異體字康熙字典體'),
+    (TabLocators.EMAIL_TAB, '123@321.23@', '123 OR 1=1'), # sql
+        (TabLocators.NUMBER_TAB, '+60000000000', '2' * 1000),
+    (TabLocators.PERSONAL_ACCOUNT_TAB, '2' * 12, '■ □ ▪ ▫ ▬ ▲►▼◄◊ ○ ◌ ● ◘ ◙ ◦ ◽ ◾')
 ])
 def test_extremal_login(login_view, tab, login, password, attributes):
     if tab == TabLocators.PERSONAL_ACCOUNT_TAB and attributes.auth_attr.ls == 0:

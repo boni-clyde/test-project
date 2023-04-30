@@ -41,7 +41,7 @@ def test_correct_temp_code(temp_code_view, attributes, input, id):
 
 """
 TEMP-CODE-2
-"""   
+"""
 @pytest.mark.parametrize("number1, number2", [("+71112223344", "+72223334455")])
 @pytest.mark.positive
 def test_change_number(temp_code_view, number1, number2, attributes):

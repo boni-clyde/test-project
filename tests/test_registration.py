@@ -11,7 +11,6 @@ Registration-1-Number
 Registration-1-Email
 """
 
-
 @pytest.mark.positive
 @pytest.mark.parametrize("name,lastname,username,id,password",
                          [('Полиграф', 'Шариков', REGISTRATION_NUMBER, 'number', '12345ABc'),
@@ -41,7 +40,6 @@ def test_correct_registration(register_view, name, lastname, username, id, passw
 Registration-2
 """
 
-
 @pytest.mark.positive
 @pytest.mark.parametrize("name,lastname,username,password", [('Иван', 'Иванов', "+71231232343", '12345ABc')])
 def test_number_masked(register_view, name, lastname, username, password):
@@ -63,7 +61,6 @@ def test_number_masked(register_view, name, lastname, username, password):
 """
 Registration-3
 """
-
 @pytest.mark.negative
 @pytest.mark.parametrize("name,lastname,username,password,reppassword",
                          [('И', '--', "123@321.23", '12345a', '12345678')])
